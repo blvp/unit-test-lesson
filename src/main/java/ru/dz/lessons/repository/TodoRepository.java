@@ -5,4 +5,5 @@ import ru.dz.lessons.model.Todo;
 
 
 public interface TodoRepository extends CrudRepository<Todo, Long> {
+    Todo findByTextAndChecked(String text, Boolean checked);
 }
