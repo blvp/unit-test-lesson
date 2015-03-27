@@ -27,7 +27,7 @@ import static ru.dz.lessons.Fixture.*;
 public class TodoApiTests {
     MockMvc mockMvc;
 
-    private final String BASE_URL = "/api/v1_0/todo";
+    private final String BASE_URL = "/api/v1_0/todo/";
 
     @InjectMocks
     TodoApi controller;
@@ -44,7 +44,7 @@ public class TodoApiTests {
 
     @Test
     public void testFindTodoById() throws Exception {
-        when(todoService.getOne(any(Long.class))).thenReturn(standardTodo());
+        when(todoService.getOneWithoutId(any(Long.class))).thenReturn(standardTodo());
 
         this.mockMvc.perform(get(BASE_URL + "{id}", 1L).accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
@@ -68,7 +68,7 @@ public class TodoApiTests {
 
         this.mockMvc.perform(get(BASE_URL + "/list").accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(jsonPath("$[0].id").value(TODO_ID))
+                .andExpect(jsonPath("$[0].id").value(TODO_ID.intValue()))
                 .andExpect(jsonPath("$[1].text").value(TODO_TEXT))
                 .andExpect(status().isOk());
     }

@@ -8,6 +8,7 @@ import ru.dz.lessons.model.Todo;
 import ru.dz.lessons.repository.TodoRepository;
 import ru.dz.lessons.service.TodoService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,8 @@ public class TodoServiceImpl implements TodoService {
     @Override
     public List<Todo> getAll() {
         Iterable<Todo> list = todoRepository.findAll();
-        return Lists.newArrayList(list);
+        ArrayList<Todo> todos = Lists.newArrayList(list);
+        return todos.isEmpty()? null: todos;
     }
 
     @Override
